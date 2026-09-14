@@ -49,5 +49,5 @@
   targets.darwin.copyApps.enable = true;
   systemd.user.startServices = "sd-switch";
 
-  sops.age.keyFile = lib.mkForce "/Users/administrador/.config/sops/age/keys.txt";
+  sops.age.keyFile = lib.mkForce "/Users/administrador/Library/Application Support/sops/age/keys.txt";
 }
