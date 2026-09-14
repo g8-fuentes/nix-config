@@ -1,4 +1,10 @@
-{ lib, pkgs, outputs, ... }: {
+{
+  lib,
+  pkgs,
+  outputs,
+  ...
+}:
+{
 
   imports = [
     ../planets/common/programs.nix
@@ -10,13 +16,16 @@
   home = {
     username = "administrador";
     homeDirectory = "/Users/administrador";
-    stateVersion = "26.05";
+    stateVersion = "26.11";
   };
 
   nix = {
     package = lib.mkDefault pkgs.nix;
     settings = {
-      experimental-features = [ "nix-command" "flakes" ];
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
       warn-dirty = false;
     };
   };
@@ -31,7 +40,8 @@
         nodejs = super.nodejs_22;
         nodejs-slim = super.nodejs-slim_22;
       })
-    ] ++ builtins.attrValues outputs.overlays;
+    ]
+    ++ builtins.attrValues outputs.overlays;
 
   };
 
