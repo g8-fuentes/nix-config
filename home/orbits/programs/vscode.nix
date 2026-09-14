@@ -11,16 +11,16 @@ let
     };
   };
 
-  kanagawa-theme = buildVscodeMarketplaceExtension {
+  tokyonight-moon = buildVscodeMarketplaceExtension {
     mktplcRef = {
-      name = "kanagawa";
-      publisher = "qufiwefefwoyn";
-      version = "1.5.1";
-      sha256 = "sha256-AGGioXcK/fjPaFaWk2jqLxovUNR59gwpotcSpGNbj1c=";
+      name = "tokyo-night-moon-nvim-theme";
+      publisher = "matyaszednicek";
+      version = "0.0.4";
+      sha256 = "sha256-A5VIU8HB+9/PFE7+TybiSUqYd6iVmOuejkOHZAIeZmU=";
     };
   };
 
- in
+in
 {
   programs.vscode = {
     enable = true;
@@ -31,7 +31,7 @@ let
       enableUpdateCheck = true;
       extensions = with pkgs.vscode-extensions; [
         # theme
-        kanagawa-theme
+        tokyonight-moon
         symbols
         # git
         donjayamanne.githistory
@@ -47,7 +47,6 @@ let
         bradlc.vscode-tailwindcss
         naumovs.color-highlight
         jnoortheen.nix-ide
-
 
       ];
       keybindings = [ ];
@@ -96,7 +95,7 @@ let
 
         "window.titleBarStyle" = "native";
         "window.commandCenter" = false;
-        "workbench.colorTheme" = "Kanagawa";
+        "workbench.colorTheme" = "Tokyo Night Moon NVim";
         "workbench.iconTheme" = "symbols";
         "workbench.startupEditor" = "newUntitledFile";
         "workbench.editor.labelFormat" = "short";

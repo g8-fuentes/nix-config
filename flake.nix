@@ -25,7 +25,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    aic8800.url = "github:kurumeii/aic8800-nix";
+    zen-browser.url = "github:0xc000022070/zen-browser-flake";
+    zen-browser.inputs.nixpkgs.follows = "nixpkgs";
 
   };
 

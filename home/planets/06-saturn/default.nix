@@ -12,7 +12,7 @@
     ../../orbits/cli
     ../../orbits/programs/vscode.nix
     ../../orbits/terminals/ghostty.nix
-    ../../orbits/browsers/firefox.nix
+    ../../orbits/browsers/zen-browser.nix
 
   ];
 }
