@@ -11,12 +11,12 @@ let
     };
   };
 
-  tokyonight-moon = buildVscodeMarketplaceExtension {
+  carbonfox = buildVscodeMarketplaceExtension {
     mktplcRef = {
-      name = "tokyo-night-moon-nvim-theme";
-      publisher = "matyaszednicek";
-      version = "0.0.4";
-      sha256 = "sha256-A5VIU8HB+9/PFE7+TybiSUqYd6iVmOuejkOHZAIeZmU=";
+      name = "nightfox-theme-collections";
+      publisher = "nuromirg";
+      version = "1.0.7";
+      sha256 = "sha256-prKqcZrVQA2K88HzP2fy/YTBnxMkZy5si8mg0/quWEM=";
     };
   };
 
@@ -31,7 +31,7 @@ in
       enableUpdateCheck = true;
       extensions = with pkgs.vscode-extensions; [
         # theme
-        tokyonight-moon
+        carbonfox
         symbols
         # git
         donjayamanne.githistory
@@ -95,7 +95,7 @@ in
 
         "window.titleBarStyle" = "native";
         "window.commandCenter" = false;
-        "workbench.colorTheme" = "Tokyo Night Moon NVim";
+        "workbench.colorTheme" = "Carbonfox";
         "workbench.iconTheme" = "symbols";
         "workbench.startupEditor" = "newUntitledFile";
         "workbench.editor.labelFormat" = "short";
