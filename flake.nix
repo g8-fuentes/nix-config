@@ -152,7 +152,7 @@
 
       # Uranus --------------------------------------------------------------
 
-      homeConfigurations."g8@uranus" = home-manager.lib.homeManagerConfiguration {
+      homeConfigurations."g8-fuentes@uranus" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages."x86_64-linux";
         extraSpecialArgs = { inherit inputs outputs; };
         modules = [
