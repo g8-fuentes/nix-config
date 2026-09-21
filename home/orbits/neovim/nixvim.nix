@@ -39,7 +39,7 @@ in
 
     colorschemes.nightfox = {
       enable = true;
-      # settings = {
+      #settings = {
       #   style = "night";
       #};
       flavor = "carbonfox";
