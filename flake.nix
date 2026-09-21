@@ -186,7 +186,6 @@
       nixosConfigurations.neptune = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs outputs; };
         modules = [
-          inputs.aic8800.nixosModules.default
           inputs.sops-nix.nixosModules.sops
           inputs.stylix.nixosModules.stylix
           ./hosts/planets/08-neptune
