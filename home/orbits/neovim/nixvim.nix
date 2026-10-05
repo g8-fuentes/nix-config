@@ -37,12 +37,9 @@ in
     nixpkgs.useGlobalPackages = true;
     package = pkgs.neovim-unwrapped;
 
-    colorschemes.nightfox = {
+    colorschemes.ayu = {
       enable = true;
-      #settings = {
-      #   style = "night";
-      #};
-      flavor = "carbonfox";
+      settings.mirage = true;
     };
 
     extraLuaPackages =

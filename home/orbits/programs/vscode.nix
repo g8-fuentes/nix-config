@@ -31,7 +31,7 @@ in
       enableUpdateCheck = true;
       extensions = with pkgs.vscode-extensions; [
         # theme
-        carbonfox
+        teabyii.ayu
         symbols
         # git
         donjayamanne.githistory
@@ -95,7 +95,7 @@ in
 
         "window.titleBarStyle" = "native";
         "window.commandCenter" = false;
-        "workbench.colorTheme" = "Carbonfox";
+        "workbench.colorTheme" = "Ayu Mirage Bordered";
         "workbench.iconTheme" = "symbols";
         "workbench.startupEditor" = "newUntitledFile";
         "workbench.editor.labelFormat" = "short";
