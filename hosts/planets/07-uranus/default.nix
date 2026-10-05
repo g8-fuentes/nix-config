@@ -18,7 +18,7 @@
     ../common
 
     # Boot initial (grub or systemd)
-    ../common/boot/systemd-boot.nix
+    ../common/boot/grub.nix
 
     # Login Manager
     ../common/login/gdm.nix
@@ -41,7 +41,6 @@
 
   # SYSTEM CONFIGS --------------------------------------
 
-  
   # Set the keyboard layout for Xorg (initial setting for GNOME)
   console.keyMap = "br-abnt2";
   services.xserver.xkb.layout = "br";

@@ -152,7 +152,7 @@
 
       # Uranus --------------------------------------------------------------
 
-      homeConfigurations."g8@uranus" = home-manager.lib.homeManagerConfiguration {
+      homeConfigurations."g8-fuentes@uranus" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages."x86_64-linux";
         extraSpecialArgs = { inherit inputs outputs; };
         modules = [
@@ -186,7 +186,6 @@
       nixosConfigurations.neptune = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs outputs; };
         modules = [
-          inputs.aic8800.nixosModules.default
           inputs.sops-nix.nixosModules.sops
           inputs.stylix.nixosModules.stylix
           ./hosts/planets/08-neptune

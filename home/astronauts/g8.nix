@@ -22,7 +22,7 @@
   home = {
     username = "g8-fuentes";
     homeDirectory = "/home/${config.home.username}";
-    stateVersion = "26.05";
+    stateVersion = "26.11";
   };
 
   nix = {

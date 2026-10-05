@@ -44,7 +44,6 @@
   # Set the keyboard layout for Xorg (initial setting for GNOME)
   console.keyMap = "us";
   services.xserver.xkb.layout = "us";
-  hardware.aic8800.enable = true;
 
   networking.hostName = "neptune";
 
