@@ -2,7 +2,6 @@
 {
 
   imports = [
-    #./himalaya.nix
     ./khal.nix
     ./ncspot.nix
   ];
@@ -32,7 +31,6 @@
     ncmpcpp = {
       package = pkgs.ncmpcpp.override { visualizerSupport = true; };
       enable = false;
-      # mpdMusicDir = "${config.home.homeDirectory}/Nextcloud/Music";
     };
     rtorrent.enable = true;
     translate-shell.enable = true;
@@ -49,16 +47,16 @@
 
   home.packages = with pkgs; [
     clock-rs
-    cmatrix # matrix
-    dipc # palette wallpaper converter
-    devour # hide terminal
-    epr # E-pub reader
-    girouette # Weather
-    pastel # color cli
-    pfetch-rs # fetch system settings
-    nix-search-cli # search cli nix
-    speedtest-rs # Networking test
-    tuifeed # feed
+    cmatrix
+    dipc
+    devour
+    epr
+    girouette
+    pastel
+    pfetch-rs
+    nix-search-cli
+    speedtest-rs
+    tuifeed
   ];
 
 }

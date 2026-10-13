@@ -7,16 +7,16 @@
 {
 
   imports = [
-    ../planets/common/programs.nix
-    ../planets/common/services.nix
-    ../planets/common/sops.nix
-    ../planets/common/stylix.nix
+    ../core/programs.nix
+    ../core/services.nix
+    ../core/sops.nix
+    ../core/stylix.nix
   ];
 
   home = {
     username = "administrador";
     homeDirectory = "/Users/administrador";
-    stateVersion = "26.11";
+    stateVersion = "26.05";
   };
 
   nix = {

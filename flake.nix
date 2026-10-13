@@ -3,20 +3,18 @@
 
   inputs = {
 
-    # Main Flakes
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    home-manager.url = "github:nix-community/home-manager/master";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    home-manager.url = "github:nix-community/home-manager/release-26.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    # Others Flakes
-    nix-darwin.url = "github:LnL7/nix-darwin/master";
+    nix-darwin.url = "github:nix-darwin/nix-darwin/nix-darwin-26.05";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
-    nixvim.url = "github:nix-community/nixvim";
+    nixvim.url = "github:nix-community/nixvim/nixos-26.05";
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
     neorg-overlay.url = "github:nvim-neorg/nixpkgs-neorg-overlay";
-    nixgl.url = "github:nix-community/nixGL";
-    stylix.url = "github:nix-community/stylix";
+    stylix.url = "github:nix-community/stylix/release-26.05";
     stylix.inputs.nixpkgs.follows = "nixpkgs";
     sops-nix.url = "github:Mic92/sops-nix";
 
@@ -26,7 +24,7 @@
     };
 
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
-    zen-browser.inputs.nixpkgs.follows = "nixpkgs";
+    zen-browser.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
   };
 
@@ -51,106 +49,66 @@
       forEachPkgs = f: forEachSystem (sys: f nixpkgs.legacyPackages.${sys});
     in
     {
-      nixosModules = import ./modules/nixos;
-      homeModules = import ./modules/home-manager;
       overlays = import ./overlays { inherit inputs outputs; };
       packages = forEachPkgs (pkgs: import ./pkgs { inherit pkgs; });
       devShells = forEachPkgs (pkgs: import ./shell.nix { inherit pkgs; });
 
-      # Sun -----------------------------------------------------------------
-
       nixosConfigurations.sun = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs outputs domain; };
         modules = [
-          ./hosts/planets/00-sun
+          ./hosts/sun
           inputs.sops-nix.nixosModules.sops
           inputs.stylix.nixosModules.stylix
-          inputs.home-manager.nixosModules.home-manager
-          {
-            home-manager = {
-              users.g8-fuentes = ./home/planets/00-sun;
-              extraSpecialArgs = { inherit inputs outputs; };
-              sharedModules = [
-                inputs.sops-nix.homeModules.sops
-                inputs.nixvim.homeModules.nixvim
-                inputs.stylix.homeModules.stylix
-              ];
-            };
-          }
         ];
       };
-
-      # Mercury -------------------------------------------------------------
-
-      homeConfigurations."g8@mercury" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages."aarch64-linux";
+      homeConfigurations."g8-fuentes@sun" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages."x86_64-linux";
         extraSpecialArgs = { inherit inputs outputs; };
         modules = [
           inputs.sops-nix.homeModules.sops
           inputs.stylix.homeModules.stylix
           inputs.nixvim.homeModules.nixvim
-          ./home/planets/01-mercury
+          ./home/sun
         ];
       };
-
-      # Venus ---------------------------------------------------------------
-
-      # Earth ---------------------------------------------------------------
-
-      # Mars ----------------------------------------------------------------
-
-      # Jupiter -------------------------------------------------------------
 
       nixosConfigurations.jupiter = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs outputs; };
         modules = [
-          ./hosts/planets/05-jupiter
+          ./hosts/jupiter
           inputs.sops-nix.nixosModules.sops
           inputs.nixos-wsl.nixosModules.wsl
-          inputs.home-manager.nixosModules.home-manager
-          {
-            home-manager = {
-              users.g8-fuentes = ./home/planets/05-jupiter;
-              extraSpecialArgs = { inherit inputs outputs; };
-              sharedModules = [
-                inputs.sops-nix.homeModules.sops
-                inputs.nixvim.homeModules.nixvim
-                inputs.stylix.homeModules.stylix
-              ];
-              useUserPackages = true;
-            };
-          }
         ];
       };
-
-      # Saturn --------------------------------------------------------------
+      homeConfigurations."g8-fuentes@jupiter" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages."x86_64-linux";
+        extraSpecialArgs = { inherit inputs outputs; };
+        modules = [
+          inputs.sops-nix.homeModules.sops
+          inputs.stylix.homeModules.stylix
+          inputs.nixvim.homeModules.nixvim
+          ./home/jupiter
+        ];
+      };
 
       darwinConfigurations."saturn" = nix-darwin.lib.darwinSystem {
         specialArgs = { inherit inputs outputs; };
         modules = [
-          ./hosts/planets/06-saturn
-          home-manager.darwinModules.home-manager
-          {
-            home-manager = {
-              useUserPackages = true;
-              users.administrador.imports = [
-                ./home/planets/06-saturn
-              ];
-              backupFileExtension = "backup";
-              extraSpecialArgs = { inherit inputs outputs; };
-              sharedModules = [
-                inputs.stylix.homeModules.stylix
-                inputs.nixvim.homeModules.nixvim
-                inputs.sops-nix.homeModules.sops
-              ];
-            };
-          }
+          ./hosts/saturn
+        ];
+      };
+      homeConfigurations."administrador@saturn" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages."aarch64-darwin";
+        extraSpecialArgs = { inherit inputs outputs; };
+        modules = [
+          inputs.sops-nix.homeModules.sops
+          inputs.stylix.homeModules.stylix
+          inputs.nixvim.homeModules.nixvim
+          ./home/saturn
         ];
       };
 
       darwinPackages = self.darwinConfigurations."saturn".pkgs;
-
-      # Uranus --------------------------------------------------------------
 
       homeConfigurations."g8-fuentes@uranus" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages."x86_64-linux";
@@ -159,7 +117,7 @@
           inputs.sops-nix.homeModules.sops
           inputs.stylix.homeModules.stylix
           inputs.nixvim.homeModules.nixvim
-          ./home/planets/07-uranus
+          ./home/uranus
         ];
       };
       nixosConfigurations.uranus = nixpkgs.lib.nixosSystem {
@@ -167,11 +125,9 @@
         modules = [
           inputs.sops-nix.nixosModules.sops
           inputs.stylix.nixosModules.stylix
-          ./hosts/planets/07-uranus
+          ./hosts/uranus
         ];
       };
-
-      # Neptune -------------------------------------------------------------
 
       homeConfigurations."g8-fuentes@neptune" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages."x86_64-linux";
@@ -180,7 +136,7 @@
           inputs.sops-nix.homeModules.sops
           inputs.stylix.homeModules.stylix
           inputs.nixvim.homeModules.nixvim
-          ./home/planets/08-neptune
+          ./home/neptune
         ];
       };
       nixosConfigurations.neptune = nixpkgs.lib.nixosSystem {
@@ -188,7 +144,7 @@
         modules = [
           inputs.sops-nix.nixosModules.sops
           inputs.stylix.nixosModules.stylix
-          ./hosts/planets/08-neptune
+          ./hosts/neptune
         ];
       };
     };

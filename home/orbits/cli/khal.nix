@@ -1,13 +1,6 @@
 { config, pkgs, ... }:
 
 {
-  ########################################
-  # ATIVAR accounts.calendar
-  ########################################
-
-  ########################################
-  # KHAL
-  ########################################
   programs.khal = {
     enable = true;
 
@@ -18,17 +11,11 @@
     };
   };
 
-  ########################################
-  # VDIRSYNCER
-  ########################################
   programs.vdirsyncer = {
     enable = true;
     statusPath = "${config.home.homeDirectory}/.vdirsyncer/status";
   };
 
-  ########################################
-  # CONTA
-  ########################################
   accounts.calendar.accounts.g8 = {
     primary = true;
 
@@ -53,9 +40,6 @@
     };
   };
 
-  ########################################
-  # ⏱️ SYNC AUTOMÁTICO (opcional)
-  ########################################
   systemd.user.services.vdirsyncer-sync = {
     Unit = {
       Description = "vdirsyncer sync";

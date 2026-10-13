@@ -5,7 +5,6 @@
     aliases = { };
     quickmarks = { st = "https://status.guifuentes8.com.br"; };
     searchEngines = {
-      # Nix search
       DEFAULT = "https://duckduckgo.com/?q={}";
       hm = "https://home-manager-options.extranix.com/?query={}&release=master";
       ns =

@@ -1,7 +1,3 @@
-# ####
-# DEFAULT CONFIG USER (Home-Manager)
-#####
-
 {
   lib,
   pkgs,
@@ -12,17 +8,17 @@
 {
 
   imports = [
-    ../planets/common/dependencies.nix
-    ../planets/common/programs.nix
-    ../planets/common/services.nix
-    ../planets/common/stylix.nix
-    ../planets/common/sops.nix
+    ../core/dependencies.nix
+    ../core/programs.nix
+    ../core/services.nix
+    ../core/stylix.nix
+    ../core/sops.nix
   ];
 
   home = {
     username = "g8-fuentes";
     homeDirectory = "/home/${config.home.username}";
-    stateVersion = "26.11";
+    stateVersion = "26.05";
   };
 
   nix = {

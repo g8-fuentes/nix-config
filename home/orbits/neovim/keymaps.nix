@@ -2,14 +2,13 @@
 {
   programs.nixvim.keymaps = [
     {
-      action = "_x"; # do not yank with x
+      action = "_x";
       key = "x";
       mode = [ "n" ];
       options = {
         silent = true;
       };
     }
-    # Save and Quit
     {
       action = ":q<CR>";
       key = "q";
@@ -42,7 +41,6 @@
         silent = true;
       };
     }
-    # Increment / Decrement
     {
       action = "<C-a>";
       key = "+";
@@ -59,7 +57,6 @@
         silent = true;
       };
     }
-    # Select all text
     {
       action = "gg<S-v>G";
       key = "<C-a>";
@@ -68,7 +65,6 @@
         silent = true;
       };
     }
-    # Split window
     {
       action = ":split<Return><C-w>w";
       key = "sh";

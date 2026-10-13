@@ -13,20 +13,19 @@ in
 appimageTools.wrapType2 {
   inherit pname src version;
 
-  extraPkgs = pkgs, with pkgs; [
+  extraPkgs = pkgs: with pkgs; [
     ffmpeg
   ];
 
   extraInstallCommands = ''
-    mv $out/bin/${pname}-${version} $out/bin/${pname}
     install -m 444 -D ${appimageContents}/dbgate.desktop -t $out/share/applications
-    substituteInPlace $out/share/applications/dbgate.desktop --replace 'Exec=AppRun --no-sandbox' 'Exec=${pname}'
+    substituteInPlace $out/share/applications/dbgate.desktop --replace-fail 'Exec=AppRun --no-sandbox' 'Exec=${pname}'
     cp -r ${appimageContents}/usr/share/icons $out/share
   '';
 
   meta = with lib; {
-    description = "A fully open source & end-to-end encrypted note taking app.";
-    homepage = "https://shotcut.com";
+    description = "Database manager for MySQL, PostgreSQL, SQL Server, MongoDB, SQLite and others";
+    homepage = "https://dbgate.org";
     license = licenses.gpl3Only;
     platforms = [ "x86_64-linux" ];
   };

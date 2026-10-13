@@ -128,10 +128,6 @@ in
             enable = true;
             onAttach.function = onAttachFunction;
           };
-          # marksman = {
-          #  enable = true;
-          #  onAttach.function = onAttachFunction;
-          #};
           lua_ls = {
             enable = true;
             onAttach.function = onAttachFunction;

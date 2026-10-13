@@ -7,11 +7,6 @@ in {
   services.dunst = {
     enable = true;
     package = pkgs.dunst;
-    # iconTheme.size = "128x128";
-    # iconTheme = {
-    #   name = config.gtk.iconTheme.name;
-    #  package = config.gtk.iconTheme.package;
-    # };
 
     settings = {
       global = {

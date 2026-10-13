@@ -60,7 +60,7 @@ in
       };
       dwindle = {
         pseudotile = true;
-        preserve_split = true; # You probably want this
+        preserve_split = true;
       };
       master = { };
       misc = { };
@@ -84,7 +84,6 @@ in
     };
 
     extraConfig = ''
-      # KEYBINDS
         $mainMod = SUPER
         $term = ${term}
 
@@ -96,13 +95,11 @@ in
         bind = $mainMod, F, togglefloating,
         bind = $mainMod, M, fullscreen, 0
 
-      # Move focus with mainMod + arrow keys
         bind = $mainMod, left, movefocus, l
         bind = $mainMod, right, movefocus, r
         bind = $mainMod, up, movefocus, u
         bind = $mainMod, down, movefocus, d
 
-        # Switch workspaces with mainMod + [0-9]
         bind = $mainMod, 1, workspace, 1
         bind = $mainMod, 2, workspace, 2
         bind = $mainMod, 3, workspace, 3
@@ -124,40 +121,32 @@ in
         bind = $mainMod SHIFT, 9, movetoworkspace, 9
         bind = $mainMod SHIFT, 0, movetoworkspace, 10
 
-      # Scroll through existing workspaces with mainMod + scroll
         bind = $mainMod, mouse_down, workspace, e+1
         bind = $mainMod, mouse_up, workspace, e-1
 
-        # Move/resize windows with mainMod + LMB/RMB and dragging
         bindm = $mainMod, mouse:272, movewindow
         bindm = $mainMod, mouse:273, resizewindow
 
         bind=CTRL_SHIFT,R,submap,resize
         submap=resize
 
-        # sets repeatable binds for resizing the active window
         binde=,right,resizeactive,10 0
         binde=,left,resizeactive,-10 0
         binde=,up,resizeactive,0 -10
         binde=,down,resizeactive,0 10
 
-        # use reset to go back to the global submap
         bind=,escape,submap,reset 
 
-        # will reset the submap, meaning end the current one and return to the global one
         submap=reset
 
-        # Light screen
         bind = ,XF86MonBrightnessUp, exec, xbacklight -inc 10
         bind = ,XF86MonBrightnessDown, exec, xbacklight -dec 10
                 
-        # Volume
         bind = ,XF86AudioRaiseVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ +5%
         bind = ,XF86AudioLowerVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ -5%
         bind = ,XF86AudioMute, exec, pactl set-sink-mute @DEFAULT_SINK@ toggle
         bind = ,XF86AudioMicMute, exec, pactl set-source-mute @DEFAULT_SOURCE@ toggle
                 
-        # Mpris
         bind = ,XF86AudioPrev, exec, playerctl previous
         bind = ,XF86AudioPlay, exec, playerctl play-pause
         bind = ,XF86AudioNext, exec, playerctl next
@@ -166,7 +155,6 @@ in
         bind = ,Print, exec, grim -g "$(slurp)" - | wl-copy 
         bind = SUPER SHIFT, S, exec, grim -g "$(slurp)" - | wl-copy 
 
-        # Rofi scripts
         bind = $mainMod, F1, exec, 
         bind = $mainMod, F2, exec, 
         bind = $mainMod, F3, exec, 
@@ -180,7 +168,6 @@ in
         bind = $mainMod, F11, exec, rofi-rbw  --clipboarder wl-copy --keybindings 'Ctrl+1:copy:username,Ctrl+2:copy:password,Ctrl+3:copy:totp,Ctrl+4:copy:notes,Ctrl+5:sync'
         bind = $mainMod, F12, exec, rofi -show p -modi p:rofi-power-menu -lines 6
 
-        # Pick color
         bind = $mainMod SHIFT, p, exec, ${pkgs.hyprpicker}/bin/hyprpicker -a
         bind = $mainMod SHIFT, b, exec, qutebrowser;
         bind = $mainMod SHIFT, m, exec, ${term} -e spotify_player;

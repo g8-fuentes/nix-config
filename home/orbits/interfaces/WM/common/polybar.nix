@@ -31,10 +31,6 @@
         enable-ipc = true;
         wm-restack = "bspwm";
 
-        #  font-0 =
-        #      "${configOptions.styles.font.main}:size=${configOptions.styles.font.size};2";
-        #    font-1 = "${configOptions.styles.font.main}:size=16;2";
-
         modules-left = [ "spotify-lyrics" ];
         modules-center = [ "xworkspaces" ];
         modules-right = [
@@ -160,20 +156,6 @@
         label = "%date%";
         label-foreground = "#${config.colorScheme.palette.base09}";
       };
-      #  "module/xkeyboard"={
-      #   type = internal/xkeyboard;
-      #   blacklist-0 = num lock;
-      #   label-layout = 󰌌 %layout% ;
-      #   label-layout-foreground = #${config.colorScheme.palette.base0D};
-      #   label-indicator-on-capslock =   Caps lock;
-      #   label-indicator-off-capslock =   Caps lock;
-      #   label-indicator-on-capslock-foreground = #${config.colorScheme.palette.base0D};
-      #   label-indicator-off-capslock-foreground = #${config.colorScheme.palette.base0D};
-      #   label-indicator-padding = 2;
-      #   label-indicator-margin = 1;
-      #   label-indicator-foreground = #${config.colorScheme.palette.base0D};
-      #   label-indicator-background = #${config.colorScheme.palette.base0D};
-      #};
 
       "module/tray" = {
         type = "internal/tray";

@@ -7,12 +7,10 @@ in {
     package = pkgs.sway;
     config = {
       keybindings = lib.mkOptionDefault {
-        # Essencial Functions
         "${modifier}+Escape" = "exit";
         "${modifier}+Return" = "exec foot";
         "${modifier}+q" = "kill";
 
-        # Layout
         "${modifier}+s" = "layout toggle split";
         "${modifier}+space" = "floating toggle";
         "${modifier}+f" = "fullscreen";
@@ -20,7 +18,6 @@ in {
         "${modifier}+v" = "splitv";
         "${modifier}+h" = "splith";
 
-        # Rofi
         "${modifier}+f1" =
           "exec rofi -modes 'file-browser-extended' -show file-browser-extended";
         "${modifier}+f2" = "exec rofi-pulse-select source";
@@ -32,11 +29,9 @@ in {
         "${modifier}+f7" = "exec rofi-bluetooth";
         "${modifier}+f8" = "exec rofi -show p -modi p:rofi-power-menu -lines 6";
 
-        # Brightness
         "XF86MonBrightnessUp" = "exec xbacklight -inc 10";
         "XF86MonBrightnessDown" = "exec xbacklight -dec 10";
 
-        # Volume
         "XF86AudioRaiseVolume" =
           "exec pactl set-sink-volume @DEFAULT_SINK@ +5%";
         "XF86AudioLowerVolume" =
@@ -45,12 +40,10 @@ in {
         "XF86AudioMicMute" =
           "exec pactl set-source-mute @DEFAULT_SOURCE@ toggle";
 
-        # Media Keys
         "XF86AudioPrev" = "exec playerctl previous";
         "XF86AudioPlay" = "exec playerctl play-pause";
         "XF86AudioNext" = "exec playerctl next";
 
-        # Print and Video Record
         "Print" = ''exec grim -g "$(slurp)" - | wl-copy'';
         "Alt+Print" = ''
           exec slurp | grim - g - - | wl-copy && wl-paste > ${config.home.homeDirectory}/Pictures/$(date + "%Y-%m-%d-%H%M%S_grim.png")'';
@@ -171,7 +164,7 @@ in {
       };
 
       workspaceAutoBackAndForth = true;
-      workspaceLayout = "default"; # default | stacking | tabbed
+      workspaceLayout = "default";
 
     };
 

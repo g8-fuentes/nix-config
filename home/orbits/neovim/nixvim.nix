@@ -64,19 +64,15 @@ in
     ];
 
     extraPackages = with pkgs; [
-      # Language servers
       typescript-language-server
       vscode-langservers-extracted
-      #marksman
       tailwindcss-language-server
       lua-language-server
       nixd
-      # Formatters
       ruff
       nixfmt
       prettierd
       stylua
-      # Linters
       pylint
       eslint_d
     ];

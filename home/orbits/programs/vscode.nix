@@ -30,20 +30,16 @@ in
       enableExtensionUpdateCheck = true;
       enableUpdateCheck = true;
       extensions = with pkgs.vscode-extensions; [
-        # theme
         teabyii.ayu
         symbols
-        # git
         donjayamanne.githistory
         eamodio.gitlens
         ms-vsliveshare.vsliveshare
 
-        # lint
         dbaeumer.vscode-eslint
         esbenp.prettier-vscode
         davidanson.vscode-markdownlint
 
-        # extra language plugins
         bradlc.vscode-tailwindcss
         naumovs.color-highlight
         jnoortheen.nix-ide

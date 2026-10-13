@@ -7,7 +7,6 @@ export XDG_CACHE_HOME=~/.cache
 WALLPAPER_PATH=~/Pictures
 IMG_NAME=$(ls ${WALLPAPER_PATH} | shuf -n 1)
 IMG_PATH=${WALLPAPER_PATH}/$IMG_NAME
-#swaybg -i "${IMG_PATH}"
 
 init() {
   swww init

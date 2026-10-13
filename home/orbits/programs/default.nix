@@ -17,7 +17,6 @@
     };
   };
   home.packages = with pkgs; [
-    # programs
     discord
     evolution
     flameshot

@@ -7,10 +7,12 @@
 {
   imports = [
     inputs.nur.modules.homeManager.default
+    inputs.zen-browser.homeModules.default
   ];
-  programs.firefox = {
+  stylix.targets.zen-browser.profileNames = [ config.home.username ];
+
+  programs.zen-browser = {
     enable = true;
-    package = inputs.zen-browser.packages."${pkgs.system}".default;
     policies = {
       DefaultDownloadDirectory = "${config.home.homeDirectory}/Downloads";
     };
