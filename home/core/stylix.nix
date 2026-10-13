@@ -53,8 +53,7 @@ in
       swaylock.enable = true;
       tmux.enable = true;
       vim.enable = true;
-      vscode.enable = true;
-      vscode.fonts.enable = false;
+      vscode.enable = false;
       waybar.enable = false;
       wezterm.enable = true;
       wpaperd.enable = true;

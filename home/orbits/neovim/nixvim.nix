@@ -38,9 +38,9 @@ in
     nixpkgs.useGlobalPackages = true;
     package = pkgs.neovim-unwrapped;
 
-    colorschemes.tokyonight = {
+    colorschemes.rose-pine = {
       enable = true;
-      settings.style = theme.variant;
+      settings.variant = theme.variant;
     };
 
     extraLuaPackages =

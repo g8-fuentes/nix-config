@@ -1,5 +1,6 @@
 { pkgs, ... }:
 let
+  theme = import ../../../theme.nix { inherit pkgs; };
   inherit (pkgs.vscode-utils) buildVscodeMarketplaceExtension;
 
   symbols = buildVscodeMarketplaceExtension {
@@ -21,6 +22,7 @@ in
       enableExtensionUpdateCheck = true;
       enableUpdateCheck = true;
       extensions = with pkgs.vscode-extensions; [
+        theme.vscode.extension
         symbols
         donjayamanne.githistory
         eamodio.gitlens
@@ -81,7 +83,7 @@ in
 
         "window.titleBarStyle" = "native";
         "window.commandCenter" = false;
-        "workbench.colorTheme" = "Stylix";
+        "workbench.colorTheme" = theme.vscode.colorTheme;
         "workbench.iconTheme" = "symbols";
         "workbench.startupEditor" = "newUntitledFile";
         "workbench.editor.labelFormat" = "short";
