@@ -1,5 +1,6 @@
 {
   config,
+  inputs,
   lib,
   options,
   pkgs,
@@ -15,6 +16,9 @@ in
   config = lib.mkMerge [
     {
       nix.settings.trusted-users = [ username ];
+      environment.systemPackages = [
+        inputs.home-manager.packages.${pkgs.stdenv.hostPlatform.system}.default
+      ];
     }
 
     (lib.optionalAttrs (!isDarwin) {
@@ -155,6 +159,9 @@ in
 
     (lib.optionalAttrs isDarwin {
       users.users.${username}.home = "/Users/${username}";
+
+      environment.systemPackages = [ pkgs.nh ];
+      environment.variables.NH_FLAKE = "${config.users.users.${username}.home}/nix-config";
 
       system.primaryUser = username;
       system.stateVersion = 6;
