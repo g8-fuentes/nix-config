@@ -16,6 +16,7 @@ let
         rev = rev;
       };
     };
+  theme = import ../../../theme.nix { inherit pkgs; };
 in
 {
   imports = [
@@ -37,9 +38,9 @@ in
     nixpkgs.useGlobalPackages = true;
     package = pkgs.neovim-unwrapped;
 
-    colorschemes.ayu = {
+    colorschemes.tokyonight = {
       enable = true;
-      settings.mirage = true;
+      settings.style = theme.variant;
     };
 
     extraLuaPackages =

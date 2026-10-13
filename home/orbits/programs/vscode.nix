@@ -11,15 +11,6 @@ let
     };
   };
 
-  carbonfox = buildVscodeMarketplaceExtension {
-    mktplcRef = {
-      name = "nightfox-theme-collections";
-      publisher = "nuromirg";
-      version = "1.0.7";
-      sha256 = "sha256-prKqcZrVQA2K88HzP2fy/YTBnxMkZy5si8mg0/quWEM=";
-    };
-  };
-
 in
 {
   programs.vscode = {
@@ -30,7 +21,6 @@ in
       enableExtensionUpdateCheck = true;
       enableUpdateCheck = true;
       extensions = with pkgs.vscode-extensions; [
-        teabyii.ayu
         symbols
         donjayamanne.githistory
         eamodio.gitlens
@@ -91,7 +81,7 @@ in
 
         "window.titleBarStyle" = "native";
         "window.commandCenter" = false;
-        "workbench.colorTheme" = "Ayu Mirage Bordered";
+        "workbench.colorTheme" = "Stylix";
         "workbench.iconTheme" = "symbols";
         "workbench.startupEditor" = "newUntitledFile";
         "workbench.editor.labelFormat" = "short";

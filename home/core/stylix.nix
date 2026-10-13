@@ -5,23 +5,16 @@
   ...
 }:
 let
-  cursorName = "Bibata-Modern-Ice";
-  cursorPkg = pkgs.bibata-cursors;
-  base16SchemeDefault = "${pkgs.base16-schemes}/share/themes/ayu-mirage.yaml";
+  theme = import ../../theme.nix { inherit pkgs; };
 in
 {
   stylix = {
     enable = true;
     autoEnable = true;
-    polarity = "dark";
-    base16Scheme = base16SchemeDefault;
+    polarity = theme.polarity;
+    base16Scheme = theme.base16Scheme;
     imageScalingMode = "fill";
-    fonts = {
-      monospace = {
-        name = "JetBrainsMonoNL Nerd Font";
-        package = pkgs.nerd-fonts.jetbrains-mono;
-      };
-    };
+    fonts.monospace = theme.monospace;
     opacity = {
       applications = 1.0;
       terminal = 1.0;
@@ -60,7 +53,8 @@ in
       swaylock.enable = true;
       tmux.enable = true;
       vim.enable = true;
-      vscode.enable = false;
+      vscode.enable = true;
+      vscode.fonts.enable = false;
       waybar.enable = false;
       wezterm.enable = true;
       wpaperd.enable = true;
