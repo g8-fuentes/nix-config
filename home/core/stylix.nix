@@ -2,12 +2,16 @@
   pkgs,
   lib,
   config,
+  options,
+  outputs,
   ...
 }:
 let
   theme = import ../../theme.nix { inherit pkgs; };
 in
 {
+  _module.args.theme = theme;
+
   stylix = {
     enable = true;
     autoEnable = true;
@@ -20,7 +24,7 @@ in
       terminal = 1.0;
       desktop = 1.0;
     };
-    targets = {
+    targets = outputs.lib.existing options.stylix.targets {
       alacritty.enable = true;
       bat.enable = true;
       btop.enable = true;
@@ -62,6 +66,14 @@ in
       zathura.enable = true;
     };
   };
+
+  home.activation.setDarwinWallpaper =
+    lib.mkIf (pkgs.stdenv.hostPlatform.isDarwin && config.stylix.image != null)
+      (
+        lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+          run /usr/bin/osascript -e 'tell application "System Events" to tell every desktop to set picture to "${config.stylix.image}"'
+        ''
+      );
 
   gtk = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
   };

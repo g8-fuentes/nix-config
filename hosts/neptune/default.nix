@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ theme, ... }:
 {
   imports = [
 
@@ -29,6 +29,7 @@
   console.keyMap = "us";
   services.xserver.xkb.layout = "us";
 
+  stylix.image = theme.wallpaper "neptune";
   networking.hostName = "neptune";
 
 }

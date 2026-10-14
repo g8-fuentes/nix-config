@@ -13,6 +13,7 @@
     enable = true;
     wslConf.network.hostname = config.networking.hostName;
     useWindowsDriver = true;
+    interop.register = true;
 
     defaultUser = "g8-fuentes";
     startMenuLaunchers = true;

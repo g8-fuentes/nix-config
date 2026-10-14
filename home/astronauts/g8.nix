@@ -16,8 +16,8 @@
   ];
 
   home = {
-    username = "g8-fuentes";
-    homeDirectory = "/home/${config.home.username}";
+    username = lib.mkDefault "g8-fuentes";
+    homeDirectory = lib.mkDefault "/home/${config.home.username}";
     stateVersion = "26.05";
   };
 

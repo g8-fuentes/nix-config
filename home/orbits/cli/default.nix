@@ -1,4 +1,9 @@
-{ pkgs, config, ... }:
+{
+  pkgs,
+  config,
+  outputs,
+  ...
+}:
 {
 
   imports = [
@@ -45,18 +50,18 @@
     };
   };
 
-  home.packages = with pkgs; [
-    clock-rs
-    cmatrix
-    dipc
-    devour
-    epr
-    girouette
-    pastel
-    pfetch-rs
-    nix-search-cli
-    speedtest-rs
-    tuifeed
+  home.packages = outputs.lib.available pkgs [
+    "clock-rs"
+    "cmatrix"
+    "dipc"
+    "devour"
+    "epr"
+    "girouette"
+    "pastel"
+    "pfetch-rs"
+    "nix-search-cli"
+    "speedtest-rs"
+    "tuifeed"
   ];
 
 }

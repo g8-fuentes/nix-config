@@ -3,6 +3,8 @@ let
   theme = import ../../theme.nix { inherit pkgs; };
 in
 {
+  _module.args.theme = theme;
+
   stylix = {
     enable = true;
     autoEnable = true;
@@ -17,6 +19,7 @@ in
     override = { };
     targets = {
       console.enable = true;
+      grub.useImage = true;
     };
   };
 

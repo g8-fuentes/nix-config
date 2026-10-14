@@ -1,10 +1,24 @@
-{ pkgs, ... }: {
-  programs.nixvim = {
-    keymaps = [{
-      action.__raw = ''function () require("yazi").yazi() end'';
-      key = "<C-b>";
-      options = { silent = true; };
-    }];
+{
+  pkgs,
+  lib,
+  options,
+  outputs,
+  ...
+}:
+let
+  nixvimOptions = options.programs.nixvim.type.getSubOptions [ ];
+in
+{
+  programs.nixvim = outputs.lib.existing nixvimOptions {
+    keymaps = lib.optionals (nixvimOptions.plugins ? yazi) [
+      {
+        action.__raw = ''function () require("yazi").yazi() end'';
+        key = "<C-b>";
+        options = {
+          silent = true;
+        };
+      }
+    ];
     plugins.yazi = {
       enable = true;
       settings = {

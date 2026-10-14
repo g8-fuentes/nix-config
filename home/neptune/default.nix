@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ theme, ... }:
 {
 
   imports = [
@@ -15,5 +15,5 @@
 
   ];
 
-  stylix.image = ./neptune.png;
+  stylix.image = theme.wallpaper "neptune";
 }

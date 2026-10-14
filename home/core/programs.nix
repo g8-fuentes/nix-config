@@ -2,9 +2,32 @@
   pkgs,
   config,
   lib,
+  options,
   ...
 }:
-
+let
+  gitSettings = {
+    http.postBuffer = "524288000";
+    pull.rebase = false;
+    push.autoSetupRemote = true;
+    init.defaultBranch = "main";
+    user = {
+      name = "Guilherme Fuentes";
+      email = "guifuentes8@gmail.com";
+    };
+    alias = {
+      a = "add .";
+      ch = "checkout";
+      new = "checkout -b";
+      cm = "commit -m";
+      ps = "push";
+      pl = "pull";
+      fe = "fetch";
+      st = "status";
+      rs = "reset HEAD~1 --hard";
+    };
+  };
+in
 {
 
   home.packages = [
@@ -13,11 +36,6 @@
   ++ lib.optional pkgs.stdenv.isLinux pkgs.nextcloud-client;
 
   programs = {
-
-    delta = {
-      enable = true;
-      enableGitIntegration = true;
-    };
 
     gh = {
       enable = true;
@@ -31,37 +49,25 @@
     git = {
       enable = true;
       lfs.enable = true;
-      settings = {
-        http.postBuffer = "524288000";
-        pull.rebase = false;
-        push.autoSetupRemote = true;
-        init.defaultBranch = "main";
-        user = {
-          name = "Guilherme Fuentes";
-          email = "guifuentes8@gmail.com";
-        };
-        alias = {
-          a = "add .";
-          ch = "checkout";
-          new = "checkout -b";
-          cm = "commit -m";
-          ps = "push";
-          pl = "pull";
-          fe = "fetch";
-          st = "status";
-          rs = "reset HEAD~1 --hard";
-        };
-      };
-    };
+    }
+    // (
+      if options.programs.git ? settings then
+        { settings = gitSettings; }
+      else
+        {
+          userName = gitSettings.user.name;
+          userEmail = gitSettings.user.email;
+          aliases = gitSettings.alias;
+          extraConfig = removeAttrs gitSettings [
+            "user"
+            "alias"
+          ];
+          delta.enable = true;
+        }
+    );
     gpg.enable = true;
 
     home-manager.enable = true;
-
-    nh = {
-      enable = true;
-      clean.enable = true;
-      flake = "${config.home.homeDirectory}/nix-config";
-    };
 
     starship = {
       enable = true;
@@ -74,10 +80,13 @@
       autosuggestion.enable = true;
       enableCompletion = true;
       syntaxHighlighting.enable = true;
-      initContent = ''
-        unset -v SSH_ASKPASS
-        export GITHUB_TOKEN=$(cat ${config.sops.secrets.github-token.path})
-      '';
+      ${if options.programs.zsh ? initContent then "initContent" else "initExtra"} =
+        ''
+          unset -v SSH_ASKPASS
+        ''
+        + lib.optionalString (options ? sops) ''
+          export GITHUB_TOKEN=$(cat ${config.sops.secrets.github-token.path})
+        '';
       shellAliases = {
         cjpg = "mogrify -format jpg *.png && rm *.png";
         pick = "xcolor | hyprpicker";
@@ -102,6 +111,23 @@
         up = "${if pkgs.stdenv.hostPlatform.isDarwin then "nh darwin switch" else "nh os switch"} && nh home switch";
       };
     };
+  }
+  // lib.optionalAttrs (options.programs ? delta) {
+    delta = {
+      enable = true;
+      enableGitIntegration = true;
+    };
+  }
+  // lib.optionalAttrs (options.programs ? nh) {
+    nh = {
+      enable = true;
+      clean.enable = true;
+      flake = "${config.home.homeDirectory}/nix-config";
+    };
+  };
+
+  home.sessionVariables = lib.mkIf (!(options.programs ? nh)) {
+    FLAKE = "${config.home.homeDirectory}/nix-config";
   };
 
 }

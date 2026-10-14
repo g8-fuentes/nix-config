@@ -1,4 +1,9 @@
-{ pkgs, ... }:
+{
+  pkgs,
+  options,
+  outputs,
+  ...
+}:
 let
   onAttachFunction = ''
     local on_attach = function(client, bufnr)
@@ -13,7 +18,7 @@ let
     end  '';
 in
 {
-  programs.nixvim = {
+  programs.nixvim = outputs.lib.existing (options.programs.nixvim.type.getSubOptions [ ]) {
     keymaps = [
       {
         action = "<cmd>Lspsaga code_action<CR>";
@@ -99,7 +104,12 @@ in
             enable = true;
             onAttach.function = onAttachFunction;
           };
-          ts_ls = {
+          ${
+            if (options.programs.nixvim.type.getSubOptions [ ]).plugins.lsp.servers ? ts_ls then
+              "ts_ls"
+            else
+              "tsserver"
+          } = {
             enable = true;
             onAttach.function = onAttachFunction;
           };

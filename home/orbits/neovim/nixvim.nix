@@ -2,6 +2,9 @@
   pkgs,
   lib,
   config,
+  theme,
+  options,
+  outputs,
   ...
 }:
 let
@@ -16,7 +19,6 @@ let
         rev = rev;
       };
     };
-  theme = import ../../../theme.nix { inherit pkgs; };
 in
 {
   imports = [
@@ -33,14 +35,14 @@ in
     ./plugins/yazi.nix
   ];
 
-  programs.nixvim = {
+  programs.nixvim = outputs.lib.existing (options.programs.nixvim.type.getSubOptions [ ]) {
     enable = true;
     nixpkgs.useGlobalPackages = true;
     package = pkgs.neovim-unwrapped;
 
-    colorschemes.rose-pine = {
+    colorschemes.kanagawa = {
       enable = true;
-      settings.variant = theme.variant;
+      settings.theme = theme.variant;
     };
 
     extraLuaPackages =
@@ -64,18 +66,27 @@ in
       material-nvim
     ];
 
-    extraPackages = with pkgs; [
-      typescript-language-server
-      vscode-langservers-extracted
-      tailwindcss-language-server
-      lua-language-server
-      nixd
-      ruff
-      nixfmt
-      prettierd
-      stylua
-      pylint
-      eslint_d
+    extraPackages = outputs.lib.available pkgs [
+      [
+        "typescript-language-server"
+        "nodePackages.typescript-language-server"
+      ]
+      "vscode-langservers-extracted"
+      [
+        "tailwindcss-language-server"
+        "nodePackages.@tailwindcss/language-server"
+      ]
+      "lua-language-server"
+      "nixd"
+      "ruff"
+      [
+        "nixfmt-rfc-style"
+        "nixfmt"
+      ]
+      "prettierd"
+      "stylua"
+      "pylint"
+      "eslint_d"
     ];
 
     opts = {

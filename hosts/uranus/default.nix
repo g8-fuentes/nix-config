@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ theme, ... }:
 {
   imports = [
 
@@ -30,6 +30,7 @@
   services.xserver.xkb.layout = "br";
   services.xserver.xkb.variant = "abnt2";
 
+  stylix.image = theme.wallpaper "uranus";
   networking.hostName = "uranus";
 
 }

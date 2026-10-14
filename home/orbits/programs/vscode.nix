@@ -1,6 +1,5 @@
-{ pkgs, ... }:
+{ pkgs, theme, ... }:
 let
-  theme = import ../../../theme.nix { inherit pkgs; };
   inherit (pkgs.vscode-utils) buildVscodeMarketplaceExtension;
 
   symbols = buildVscodeMarketplaceExtension {

@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ theme, ... }:
 {
 
   imports = [
@@ -13,4 +13,6 @@
     ../orbits/browsers/zen-browser.nix
 
   ];
+
+  stylix.image = theme.wallpaper "saturn";
 }
