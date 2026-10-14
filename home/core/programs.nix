@@ -32,8 +32,7 @@ in
 
   home.packages = [
     pkgs.age
-  ]
-  ++ lib.optional pkgs.stdenv.isLinux pkgs.nextcloud-client;
+  ];
 
   programs = {
 

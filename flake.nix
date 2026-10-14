@@ -26,19 +26,6 @@
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
     zen-browser.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
-    nixpkgs-droid.url = "github:nixos/nixpkgs/nixos-24.05";
-    home-manager-droid.url = "github:nix-community/home-manager/release-24.05";
-    home-manager-droid.inputs.nixpkgs.follows = "nixpkgs-droid";
-    nix-on-droid.url = "github:nix-community/nix-on-droid/release-24.05";
-    nix-on-droid.inputs.nixpkgs.follows = "nixpkgs-droid";
-    nix-on-droid.inputs.home-manager.follows = "home-manager-droid";
-    nixvim-droid.url = "github:nix-community/nixvim/nixos-24.05";
-    nixvim-droid.inputs.nixpkgs.follows = "nixpkgs-droid";
-    nixvim-droid.inputs.home-manager.follows = "home-manager-droid";
-    stylix-droid.url = "github:nix-community/stylix/release-24.05";
-    stylix-droid.inputs.nixpkgs.follows = "nixpkgs-droid";
-    stylix-droid.inputs.home-manager.follows = "home-manager-droid";
-
   };
 
   outputs =
@@ -86,25 +73,18 @@
         ];
       };
 
-      nixOnDroidConfigurations.mercury = inputs.nix-on-droid.lib.nixOnDroidConfiguration {
-        pkgs = import inputs.nixpkgs-droid {
-          system = "aarch64-linux";
-          overlays = [ inputs.nix-on-droid.overlays.default ];
-        };
-        extraSpecialArgs = { inherit inputs outputs; };
-        modules = [ ./hosts/mercury ];
-      };
-      homeConfigurations."nix-on-droid@localhost" = inputs.home-manager-droid.lib.homeManagerConfiguration {
-        pkgs = inputs.nixpkgs-droid.legacyPackages."aarch64-linux";
+      # Termux: proot NixOS running as root, with single-user Nix
+      homeConfigurations."mercury" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages."aarch64-linux";
         extraSpecialArgs = { inherit inputs outputs; };
         modules = [
-          inputs.stylix-droid.homeManagerModules.stylix
-          inputs.nixvim-droid.homeManagerModules.nixvim
+          inputs.stylix.homeModules.stylix
+          inputs.nixvim.homeModules.nixvim
           ./home/mercury
         ];
       };
 
-      nixosConfigurations.jupiter = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.jupiter =nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs outputs; };
         modules = [
           ./hosts/jupiter
