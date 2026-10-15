@@ -19,7 +19,7 @@ in
     override = { };
     targets = {
       console.enable = true;
-      grub.useImage = true;
+      grub.useWallpaper = true;
     };
   };
 

@@ -1,5 +1,6 @@
 {
   config,
+  inputs,
   lib,
   pkgs,
   theme,
@@ -36,6 +37,16 @@ let
       brightWhite = c.base06;
     }
   );
+  zenProfile = config.programs.zen-browser.profiles.windows;
+  zenUserJs = pkgs.writeText "zen-user.js" (
+    lib.concatStrings (
+      lib.mapAttrsToList (name: value: "user_pref(${builtins.toJSON name}, ${builtins.toJSON value});\n") (
+        lib.filterAttrs (name: _: !lib.hasPrefix "font." name) zenProfile.settings
+      )
+    )
+  );
+  zenUserChrome = pkgs.writeText "userChrome.css" zenProfile.userChrome;
+  zenUserContent = pkgs.writeText "userContent.css" zenProfile.userContent;
 in
 {
   imports = [
@@ -43,7 +54,14 @@ in
     ../orbits/cli
     ../orbits/neovim
     ../orbits/dev
+    inputs.zen-browser.homeModules.default
   ];
+
+  programs.zen-browser = {
+    enable = false;
+    profiles.windows = { };
+  };
+  stylix.targets.zen-browser.profileNames = [ "windows" ];
 
   nixpkgs.config = {
     chromium.commandLineArgs = waylandArgs;
@@ -117,6 +135,33 @@ in
       fi
     else
       warnEcho "VSCode for Windows not found; VSCode theme not applied"
+    fi
+
+    if [ -n "$appDataRoaming" ]; then
+      zenDir="$(/bin/wslpath "$appDataRoaming")/zen"
+      if [ -f "$zenDir/profiles.ini" ]; then
+        sed -n 's/^Path=//p' "$zenDir/profiles.ini" | tr -d '\r' | while IFS= read -r profilePath; do
+          case "$profilePath" in
+            *:*) profileDir=$(/bin/wslpath "$profilePath") ;;
+            *) profileDir="$zenDir/$profilePath" ;;
+          esac
+          [ -f "$profileDir/prefs.js" ] || continue
+          run install -Dm644 ${zenUserChrome} "$profileDir/chrome/userChrome.css"
+          run install -Dm644 ${zenUserContent} "$profileDir/chrome/userContent.css"
+          userJs="$profileDir/user.js"
+          kept=""
+          [ -f "$userJs" ] && kept=$(sed '/^\/\/ g8-space:begin$/,/^\/\/ g8-space:end$/d' "$userJs")
+          if [ -z "''${DRY_RUN:-}" ]; then
+            {
+              [ -n "$kept" ] && printf '%s\n' "$kept"
+              echo '// g8-space:begin'
+              cat ${zenUserJs}
+              echo '// g8-space:end'
+            } > "$userJs"
+          fi
+          verboseEcho "Zen theme applied to $profileDir"
+        done
+      fi
     fi
   '';
 }

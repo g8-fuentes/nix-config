@@ -29,5 +29,7 @@
 
   };
 
-  neorg = inputs.neorg-overlay.overlays.default;
+  neorg =
+    final: prev:
+    inputs.neorg-overlay.overlays.default (final // { system = final.stdenv.hostPlatform.system; }) prev;
 }

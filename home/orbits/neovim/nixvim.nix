@@ -79,10 +79,7 @@ in
       "lua-language-server"
       "nixd"
       "ruff"
-      [
-        "nixfmt-rfc-style"
-        "nixfmt"
-      ]
+      "nixfmt"
       "prettierd"
       "stylua"
       "pylint"
