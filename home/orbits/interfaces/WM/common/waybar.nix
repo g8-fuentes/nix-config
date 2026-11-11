@@ -9,7 +9,7 @@
         fixed-center = true;
         name = "top";
         layer = "top";
-        position = "bottom";
+        position = "top";
         exclusive = true;
         modules-left = [ "hyprland/workspaces" ];
         modules-center = [ ];

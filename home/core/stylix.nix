@@ -19,6 +19,11 @@ in
     base16Scheme = theme.base16Scheme;
     imageScalingMode = "fill";
     fonts.monospace = theme.monospace;
+    cursor = {
+      name = "phinger-cursors-dark";
+      package = pkgs.phinger-cursors;
+      size = 24;
+    };
     opacity = {
       applications = 1.0;
       terminal = 1.0;

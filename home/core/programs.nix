@@ -45,6 +45,13 @@ in
 
     gh-dash.enable = true;
 
+    fastfetch = {
+      enable = true;
+      settings = {
+        logo.type = "small";
+      };
+    };
+
     git = {
       enable = true;
       lfs.enable = true;
@@ -85,6 +92,11 @@ in
         ''
         + lib.optionalString (options ? sops) ''
           export GITHUB_TOKEN=$(cat ${config.sops.secrets.github-token.path})
+        ''
+        + ''
+          if [[ -o interactive ]] && command -v fastfetch >/dev/null 2>&1; then
+            fastfetch
+          fi
         '';
       shellAliases = {
         cjpg = "mogrify -format jpg *.png && rm *.png";

@@ -17,6 +17,7 @@
     };
   };
   home.packages = with pkgs; [
+    claude-code
     discord
     evolution
     flameshot
