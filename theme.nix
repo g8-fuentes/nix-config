@@ -1,22 +1,22 @@
 { pkgs }:
 let
-  base16Scheme = "${pkgs.base16-schemes}/share/themes/kanagawa.yaml";
+  base16Scheme = "${pkgs.base16-schemes}/share/themes/tokyo-night-moon.yaml";
 in
 {
-  name = "kanagawa";
-  variant = "wave";
+  name = "tokyo-night-moon";
+  variant = "moon";
   polarity = "dark";
   inherit base16Scheme;
   vscode = {
     extension = pkgs.vscode-utils.buildVscodeMarketplaceExtension {
       mktplcRef = {
-        publisher = "qufiwefefwoyn";
-        name = "kanagawa";
-        version = "1.5.1";
-        hash = "sha256-AGGioXcK/fjPaFaWk2jqLxovUNR59gwpotcSpGNbj1c=";
+        publisher = "PatrickNasralla";
+        name = "tokyo-night-moon";
+        version = "1.1.4";
+        hash = "sha256-8rUbsDCk7JHSN4vn+TNTmIrx8ma53hH/1x0trqDwU7Y=";
       };
     };
-    colorTheme = "Kanagawa";
+    colorTheme = "Tokyo Night Moon";
   };
   monospace = {
     name = "JetBrainsMonoNL Nerd Font";

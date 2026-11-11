@@ -40,9 +40,9 @@ in
     nixpkgs.useGlobalPackages = true;
     package = pkgs.neovim-unwrapped;
 
-    colorschemes.kanagawa = {
+    colorschemes.tokyonight = {
       enable = true;
-      settings.theme = theme.variant;
+      settings.style = theme.variant;
     };
 
     extraLuaPackages =
